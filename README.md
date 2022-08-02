@@ -1,4 +1,4 @@
-## C言語でatcoder
+## C/C++でatcoder
 
 - [ atcoder_cli ](https://github.com/Tatamo/atcoder-cli)で問題ダウンロードしたり、テンプレートファイルを自動生成したりする。
 - [ online-judge-tools ](https://github.com/online-judge-tools/oj)で自動テストしたり、提出したりする。
@@ -14,6 +14,57 @@ acc add
 
 - `acc s`の`-l 4002`は`oj`のオプションで、言語（コンパイラ）のコード。
   - `4002`は`C(clang10.0.0)`。
+- `c++(clang10.0.0)`は、`4004`
+
+### templateファイルのデフォルト設定の切り替え
+
+```shell
+acc config default-template cpp
+```
+
+- templateファイルは下記に置いておく(macの場合)
+  - `/Users/${User}/Library/Preferences/atcoder-cli-nodejs`
+  - atcoder-cli-nodejsの中身はこんな感じにする
+
+```shell
+tree -L 3
+.
+├── c
+│   ├── Makefile
+│   ├── main.c
+│   └── template.json
+├── config.json
+├── cpp
+│   ├── main.cpp
+│   └── template.json
+└── session.json
+```
+
+#### cpp/main.cpp (template)
+- とりあえず下記にしてみた
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+  int n, ans = 0;
+  cin >> n;
+  cout << ans << endl;
+}
+```
+
+#### cpp/template.json
+
+```json
+{
+    "task":{
+    "program": ["main.cpp"],
+    "submit": "main.cpp", 
+    "testdir": "test"   
+    }
+}
+```
 
 
 ## Dockerfile
