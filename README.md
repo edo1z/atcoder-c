@@ -35,15 +35,14 @@ tree -L 3
 │   └── template.json
 ├── config.json
 ├── cpp
-│   ├── Makefile
+│   ├── .vimspector.json
 │   ├── main.cpp
+│   ├── Makefile
 │   └── template.json
 └── session.json
 ```
 
-#### cpp/main.cpp (template)
-
-- main.cpp
+#### cpp/main.cpp
 
 ```cpp
 #include <iostream>
@@ -58,7 +57,7 @@ int main() {
 }
 ```
 
-- Makefile
+#### cpp/Makefile
 
 ```Makefile
 b:
@@ -73,12 +72,34 @@ s:
 	acc s main.cpp -- -l 4004
 ```
 
+#### cpp/.vimspector.json
+
+```json
+{
+  "configurations": {
+    "CodeLLDB": {
+      "adapter": "CodeLLDB",
+      "variables": {
+        "BUILDME": {
+          "shell": "clang++ -o ${workspaceRoot}/debug -g -std=gnu++14 ${workspaceRoot}/main.cpp"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/debug",
+        "stdio": ["${fileDirname}/test/sample-${no}.in", null, null]
+      }
+    }
+  }
+}
+```
+
 #### cpp/template.json
 
 ```json
 {
     "task":{
-    "program": ["main.cpp", "Makefile"],
+    "program": ["main.cpp", "Makefile", ".vimspector.json"],
     "submit": "main.cpp", 
     "testdir": "test"   
     }
