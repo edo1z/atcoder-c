@@ -35,16 +35,20 @@ tree -L 3
 │   └── template.json
 ├── config.json
 ├── cpp
+│   ├── Makefile
 │   ├── main.cpp
 │   └── template.json
 └── session.json
 ```
 
 #### cpp/main.cpp (template)
-- とりあえず下記にしてみた
+
+- main.cpp
 
 ```cpp
 #include <iostream>
+#include <map>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -54,12 +58,27 @@ int main() {
 }
 ```
 
+- Makefile
+
+```Makefile
+b:
+	clang++ main.cpp -std=gnu++14
+e:
+	clang++ main.cpp -std=gnu++14 && ./a.out
+e-%:
+	clang++ ${@:e-%=%}.cpp -std=gnu++14 && ./a.out
+t:
+	oj t
+s:
+	acc s main.cpp -- -l 4004
+```
+
 #### cpp/template.json
 
 ```json
 {
     "task":{
-    "program": ["main.cpp"],
+    "program": ["main.cpp", "Makefile"],
     "submit": "main.cpp", 
     "testdir": "test"   
     }
